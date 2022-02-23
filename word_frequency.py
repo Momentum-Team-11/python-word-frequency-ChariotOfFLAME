@@ -12,15 +12,14 @@ def print_word_freq(file):
         original = file.read()
         words = original.translate(str.maketrans('', '', string.punctuation))
         words = words.lower().split()
-        punc = '''!()-[]{};:'",<>./?@#$%^&*_~'''
         for word in words:
             if word in STOP_WORDS:
-                word = ''
+                word = None
             if word in finalWords:
                 finalWords[f"{word}"] += 1
             if word not in finalWords:
                 finalWords[f"{word}"] = 1
-    print(finalWords)
+    print(sorted(finalWords.items(), key=lambda x: x[1]))
 
 
 if __name__ == "__main__":
