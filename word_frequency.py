@@ -6,13 +6,11 @@ STOP_WORDS = [
 
 def print_word_freq(file):
     import string
-    """Read in `file` and print out the frequency of words in that file."""
     finalWords = {}
     finalOutput = []
     finalLines = {}
     with open(file) as file:
-        words = file.read().translate(str.maketrans('', '', string.punctuation))
-        words = words.lower().split()
+        words = file.read().replace("—", " ").translate(str.maketrans('', '', string.punctuation)).lower().split()
         for word in words:
             if word in STOP_WORDS:
                 word = None
