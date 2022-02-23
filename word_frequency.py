@@ -8,6 +8,8 @@ def print_word_freq(file):
     import string
     """Read in `file` and print out the frequency of words in that file."""
     finalWords = {}
+    finalOutput = []
+    finalLines = {}
     with open(file) as file:
         words = file.read().translate(str.maketrans('', '', string.punctuation))
         words = words.lower().split()
@@ -19,7 +21,17 @@ def print_word_freq(file):
             if word not in finalWords:
                 finalWords[f"{word}"] = 1
         finalWords = sorted(finalWords.items(), key=lambda x: x[1], reverse=True)
-    print(finalWords)
+        for finalWord, finalNumber in finalWords:
+            finalStar = "*" * int(finalNumber)
+            finalOutput.append(f"""{finalWord} | {finalNumber} {finalStar}""")
+        maximum = len(max(finalOutput, key=len))
+        for finalItem in finalOutput:
+            finalLength = len(finalItem)
+            finalLines[f"{finalItem}"] = finalLength
+        finalLines = finalLines.items()
+        for output, outputIndent in finalLines:
+            output = str(" " * ((maximum - outputIndent) + output.count('*') + len(str(output.count('*'))))) + output
+            print(output)
 
 
 if __name__ == "__main__":
